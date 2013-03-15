@@ -1,0 +1,19 @@
+{% if properties %}
+<div id="listings">
+{% foreach properties %}
+<h3>{{ loop_value->title }}{% if loop_value->status == 'Sold' %} <span style="color: red;">Sold</span>{% elseif loop_value->status == 'Rented' %} <span style="color: red;">Rented</span>{% endif %}</h3>
+	<p style="float: left;"><a href="/{{ loop_value-> type|Property::type_to_url }}/{{ loop_value->id }}"><img style="width: 200px;" src="{{ loop_value->main_image }}"></a></p>
+    {{ loop_value->teaser|none }}
+	<p><b>{{ loop_value->price }}</b></p>
+	<p><b>{{ loop_value->MLS }}</b></p>
+	<p><a href="/{{ loop_value-> type|Property::type_to_url }}/{{ loop_value->id }}">More pictures and information</a></p>
+	{% if User::require_admin () %}
+	<p><a href="/properties/edit?id={{ loop_value->id }}">{"Edit Property"}</a></p>
+	{% end %}
+{% end %}
+</div>
+{% elseif url_type != '' %}
+	{! blocks/index?id=no-[ url_type ]-available !}
+{% else %}
+	{! blocks/index?id=no-results-found !}
+{% endif %}

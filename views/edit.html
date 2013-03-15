@@ -1,0 +1,161 @@
+{! admin/util/wysiwyg?field_id=teaser !}
+{! admin/util/wysiwyg?field_id=description !}
+{! admin/util/wysiwyg?field_id=directions !}
+{! filemanager/util/multi-image !}
+{! filemanager/util/multi-file?path=/files/properties !}
+
+<form method="post" id="{{ _form }}">
+
+<p>
+	{"Name"}:<br />
+	<input type="text" name="name" value="{{ name|quotes }}" />
+	<span class="notice" id="name-notice">{"Please enter a name."}</span>
+</p>
+
+<p>
+	{"Title"}:<br />
+	<input type="text" name="title" value="{{ title|quotes }}" onblur="webpage_add_title_to_id (this.form)" />
+	<span class="notice" id="title-notice">{"Please enter a title."}</span>
+</p>
+
+<p>
+	{"Property ID"} (ex: <tt><strong>this-property-id</strong></tt>):<br />
+	<input type="text" name="id" size="35" value="{{ id }}" onblur="this.value = this.value.toLowerCase ()" />
+	<span class="notice" id="id-notice">{"The ID must be a lowercase alphanumeric value."}</span>
+</p>
+
+<p>
+	{"Type"}:<br />
+	<select name="type">
+		<option value="Home"{% if type == 'Home' %} selected{% end %}>Home</option>
+		<option value="Acreage"{% if type == 'Acreage' %} selected{% end %}>Acreage</option>
+		<option value="Rental"{% if type == 'Rental' %} selected{% end %}>Rental</option>
+		<option value="Commercial"{% if type == 'Commercial' %} selected{% end %}>Commercial</option>
+	</select>
+</p>
+
+<p>
+	MLS {"Number"}:<br />
+	<input type="text" name="MLS" value="{{ MLS|quotes }}" />
+</p>
+
+<p>
+	{"Main Image"}:<br />
+	<input type="submit" id="browse-image" value="{"Choose an image"}" />
+	<input type="hidden" name="main_image" id="main_image" value="{{main_image|quotes}}" />
+</p>
+ 
+<p>
+	{"Preview"}:<br />
+	<img src="{% if main_image != '' %}{{ main_image }}{% else %}/apps/admin/css/admin/spacer.png{% endif %}" id="main_image-preview" />
+</p>
+
+<p style="margin-bottom: 0px;">{"Additional Images"}:</p>
+<div id="images-preview">
+	<input type="hidden" name="images" id="images" value="{{images|quotes}}" />
+</div>
+
+<p style="margin: 20px auto 0px;">{"Documents"}:</p>
+<div id="documents-preview">
+	<input type="hidden" name="documents" id="documents" value="{{documents|quotes}}" />
+</div>
+
+<p style="margin-top: 20px;"><a href="/filemanager?path=properties/{{ id }}" target="_blank">Edit image and document descriptions</a></p>
+
+<p>
+	{"Teaser"}:<br />
+	<textarea name="teaser" id="teaser" cols="90" rows="3">{{ teaser }}</textarea>
+	<span class="notice" id="teaser-notice">{"Please enter a teaser."}</span>
+</p>
+
+<p>
+	{"Description"}:<br />
+	<textarea name="description" id="description" cols="90" rows="14">{{ description }}</textarea>
+	<span class="notice" id="description-notice">{"Please enter a description."}</span>
+</p>
+
+<p>
+	{"Price"}:<br />
+	<input type="text" name="price" value="{{ price|quotes }}" />
+	<span class="notice" id="price-notice">{"Please enter a price."}</span>
+</p>
+
+<p>
+	{"Status"}:<br />
+	<select name="status">
+		<option value="Available"{% if status == 'Available' %} selected{% end %}>Available</option>
+		<option value="Under Contract"{% if status == 'Under Contract' %} selected{% end %}>Under Contract</option>
+		<option value="Sold"{% if status == 'Sold' %} selected{% end %}>Sold</option>
+		<option value="Rented"{% if status == 'Rented' %} selected{% end %}>Rented</option>
+		<option value="Other"{% if status == 'Other' %} selected{% end %}>Other</option>
+	</select>
+</p>
+
+<p>
+	{"Address"}:<br />
+	<input type="text" name="address" value="{{ address|quotes }}" size="60" />
+</p>
+
+<p>
+	{"Directions"}:<br />
+	<textarea name="directions" id="directions" cols="90" rows="2">{{ directions }}</textarea>
+</p>
+
+<p>
+	{"Map"}:<br />
+	<textarea name="map" cols="90" rows="6">{{ map }}</textarea>
+</p>
+
+<p>
+	{"On hold"}:<br />
+	<select name="on_hold">
+		<option value="0"{% if on_hold == '0' %} selected{% end %}>No</option>
+		<option value="1"{% if on_hold == '1' %} selected{% end %}>Yes</option>
+	</select>
+</p>
+
+
+<p><input type="submit" value="{"Save Property"}" /></p>
+
+</form>
+
+<style>
+	#main_image-preview {
+		width: 150px;
+		height: 90px;
+		border: 1px solid #ccc;
+	}
+</style>
+
+<script>
+	$(function () {
+		$.multi_image ({
+			field: '#images',
+			preview: '#images-preview',
+			path: 'properties/{{id|Property::clean_image_name}}'
+		});
+		$.multi_file ({
+			field: '#documents',
+			preview: '#documents-preview',
+			path: 'properties/{{id|Property::clean_image_name}}'
+		});
+		$('#browse-image').click (function () {
+			$.filebrowser ({
+				thumbs: true,
+				title: '{"Choose an image"}',
+				set_value: '#main_image',
+				path: 'properties/{{id|Property::clean_image_name}}',
+				callback: function (file) {
+					$('#main_image-preview').attr ('src', file);
+				}
+			});
+			return false;
+		});
+	});
+
+	function webpage_add_title_to_id (f) {
+		if (f.elements.id.value == '') {
+			f.elements.id.value = f.elements.title.value.toLowerCase ().replace (/[^a-z0-9\-]+/g, '-');
+		}
+	}
+</script>

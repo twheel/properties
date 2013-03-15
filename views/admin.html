@@ -1,0 +1,25 @@
+<p><a href="/properties/add">{"Add Property"}</a></p>
+
+<table width="100%">
+	<tr>
+		<th><a href="?sort=name{% if sort == 'name' && $data->desc !='name' %}&amp;desc=name{% endif %}">{" Name "}</a></th>
+		<th><a href="?sort=type{% if sort == 'type' && $data->desc !='type' %}&amp;desc=type{% endif %}">{" Type "}</a></th>
+		<th><a href="?sort=title{% if sort == 'title' && $data->desc !='title' %}&amp;desc=title{% endif %}">{" Title "}</a></th>
+		<th>&nbsp;</th>
+	</tr>
+{% foreach items %}
+	<tr>
+		<td><a	href="/{{ loop_value-> type|Property::type_to_url }}/{{ loop_value->id }}">{{ loop_value->name }}</a></td>
+		<td>{{ loop_value->type }}</td>
+		<td>{{ loop_value->title }}</td>
+		<td>
+			<a	href="/properties/edit?id={{ loop_value->id }}">{"Edit"}</a> |
+			<a	href="/properties/delete"
+				data-id="{{ loop_value->id }}"
+				onclick="return $.confirm_and_post (this, '{"Are you sure you want to delete this property?"}')">{"Delete"}</a>
+		</td>
+	</tr>
+{% end %}
+</table>
+
+{! navigation/pager?style=numbers&url=[url]&total=[total]&count=[count]&limit=[limit] !}

@@ -1,0 +1,21 @@
+{% if on_hold %}{! admin/forward?to=/&code=302 !}{% endif %}
+{% if User::require_admin () %} {! admin/util/modal !} {% end %}
+{% if status == 'Sold' %} <h3 style="color: red; text-align: center;">Sold</h3>{% elseif status == 'Rented' %} <h3 style="color: red; text-align: center;">Rented</h3>{% endif %}
+<div id="listings">
+    {! filemanager/gallery?path=properties/[ id|Property::clean_image_name ]&amp;order=alpha&amp;desc=yes&amp;style=embedded !}
+	{{ description|none }}
+	<p><b>{{ price }}</b></p>
+	<p><b>{{ MLS }}</b></p>
+	<h3 style="margin-top: -8px;">Documents</h3>
+	{% if show_documents %}
+	<p class="documents">{% foreach documents %}<a href="{{loop_index}}">{% if loop_value %}{{loop_value}}{% else %}{{ loop_index|Property::name_only }}{% endif %}</a><br>{% end %}</p>
+	{% end %}
+	{% if directions != '<p><br></p>' %}
+	<h3>Directions</h3>
+	{{ directions|none }}
+	{% end %}
+	<p class="documents"><a href="/pdf.php?uri={{url_type}}/{{id}}">Brochure</a></p>
+	{% if User::require_admin () %}
+	<p><a href="/properties/edit?id={{ id }}">{"Edit Property"}</a></p>
+	{% end %}
+</div>

@@ -1,0 +1,20 @@
+<?php
+
+// get the results from our model
+$p = new properties\Properties ($this->params[0]);
+
+$property = $p->orig();
+
+$page->title = $property->title;
+if ($property->map) $page->sidebar = "<h3>Map</h3>\n<div id=\"map\">\n".$property->map."\n</div>\n";
+$property->documents = explode ('|', $property->documents);
+if (count($properties->documents)) $show_documents = true;
+else $show_documents = false;
+
+echo $tpl->render (
+	'properties/property',
+	$property
+);
+
+?>
+

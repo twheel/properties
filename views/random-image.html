@@ -1,0 +1,22 @@
+{% if User::require_admin () %} {! admin/util/modal !} {% end %}
+<style type="text/css">
+	a.cboxElement {outline: 0;}
+</style>
+<script>
+$(function () {
+	$('#random-image-gallery').colorbox ({ 
+		scalePhotos:false,
+		maxWidth:"90%",
+		maxHeight:"90%"
+	});
+});
+</script>
+
+<div id="gallery">
+	<div style="text-align: center;">{% if large %}<a href="/{{ large }}" rel="gallery-{{ gallery }}" id="random-image-gallery"{% if desc === 'yes' %} title="{{ description }}"{% end %}>{% endif %}<img src="/{{ path }}" alt="{% if desc === 'yes' %}{{ description }}{% end %}" />{% if large %}</a>{% endif %}<br>{% if desc === 'yes' %}{{ description }}{% end %}
+	{% if User::require_admin () %}
+		{% if description %}<br>{% endif %}
+	<a href="#" onclick="return $.filemanager ('prop', {file: '{{path|substr(%s, 6)}}'})">{"Edit Caption"}</a>
+	{% end %}
+	</div>
+</div>
