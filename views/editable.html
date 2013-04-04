@@ -1,0 +1,3 @@
+<p class="admin-options">
+	<a href="/properties/add" title="{"Add Property"}" class="editable-add"></a>{% if locked %}<a href="javascript:void(0)" title="{"Editing Locked"}" class="editable-lock"></a>{% else %}<a href="/properties/edit?id={{ id }}" title="{"Edit Property"}" class="editable-edit"></a><a href="/admin/versions?type=properties\Properties&id={{ id }}" title="{"Versions"}" class="editable-versions"></a><a href="/properties/delete" data-page="{{ id }}" title="{"Delete Property"}" onclick="return $.confirm_and_post (this, '{"Are you sure you want to delete the current property?"}');" class="editable-delete"></a>{% end %}
+</p>

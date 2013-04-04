@@ -28,7 +28,8 @@
 	{"Type"}:<br />
 	<select name="type">
 		<option value="Home"{% if type == 'Home' %} selected{% end %}>Home</option>
-		<option value="Acreage"{% if type == 'Acreage' %} selected{% end %}>Acreage</option>
+		<option value="Estate"{% if type == 'Estate' %} selected{% end %}>Estate</option>
+		<option value="Land"{% if type == 'Land' %} selected{% end %}>Land</option>
 		<option value="Rental"{% if type == 'Rental' %} selected{% end %}>Rental</option>
 		<option value="Commercial"{% if type == 'Commercial' %} selected{% end %}>Commercial</option>
 	</select>
@@ -41,7 +42,7 @@
 
 <p>
 	{"Main Image"}:<br />
-	<input type="submit" id="browse-image" value="{"Choose an image"}" />
+	<!-- input type="submit" id="browse-image" tabindex="0" value="{"Choose an image"}" / -->
 	<input type="hidden" name="main_image" id="main_image" value="{{main_image|quotes}}" />
 </p>
  

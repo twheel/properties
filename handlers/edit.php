@@ -77,6 +77,7 @@ echo $form->handle (function ($form) {
 	$properties->map = $_POST['map'];
 	$properties->on_hold = $_POST['on_hold'];
 	$properties->put ();
+	// Versions::add ($properties);
 
 	// echo "\n\n";
 	// var_dump ($properties);

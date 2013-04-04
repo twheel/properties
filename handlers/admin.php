@@ -14,6 +14,18 @@ if (isset ($_GET["desc"]) && in_array ($_GET["desc"], $allowed_desc) && $_GET["d
 	$desc = $_GET["desc"];
 }
 
+// Build the query
+$parameters = array ();
+$ft_parameters = array ();
+$wheres = array ();
+$orders = array ();
+
+if (isset ($_GET['q']) && $_GET['q'] != '') {
+	$page->q = $_GET['q'];
+	$page->qs = 'q='.$page->q.'&';
+	$ft_parameters = Property::get_search_parameters ($_GET['q']);
+}
+
 $page->layout = 'admin';
 $page->title = __ ('Properties');
 
@@ -22,15 +34,23 @@ $limit = 20;
 $num = isset ($this->params[0]) ? $this->params[0] : 1;
 $offset = ($num - 1) * $limit;
 
+// Get the properties
+$p = properties\Properties::prop_query ($parameters, $ft_parameters, $wheres, $orders);
+
 // Fetch the items and total items
 if ($sort != $desc) {
-	$q = properties\Properties::query ()->order ($sort);
+	$p->order ($sort);
 } else {
-	$q = properties\Properties::query ()->order ($sort, 'DESC');
+	$p->order ($sort, 'DESC');
 }
-if ($sort != 'name') $q->order ('name'); // so that if sorted by type, results are alphabetical within type
-$items = $q->fetch ($limit, $offset);
-$total = $q->count ();
+if ($sort != 'name') $p->order ('name'); // so that if sorted by type, results are alphabetical within type
+$items = $p->fetch ($limit, $offset);
+$total = $p->count ();
+
+// info (DB::$last_sql);
+// info (DB::$last_args);
+
+// exit;
 
 // Pass our data to the view template
 echo $tpl->render (
@@ -41,6 +61,7 @@ echo $tpl->render (
 		'items' => $items,
 		'desc' => $desc,
 		'sort' => $sort,
+		'qs' => $page->qs,
 		'count' => count ($items),
 		'url' => '/properties/admin/%d'
 	)

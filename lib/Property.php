@@ -10,23 +10,32 @@ class Property {
 		return $name;
 	}
 
+	public static function get_search_parameters ($q) {
+		$qsane = Template::sanitize (trim($q));
+		list ($type) = Property::url_to_type ($qsane);
+		if ($type != 'All' && strtolower($type) != strtolower($qsane)) $qsane .= "* OR $type";
+		$qsane .= '*';
+		return array ('properties' => $qsane);
+	}
+
 	public static function mk_prop_dir ($dir) {
 		$path = $_SERVER["DOCUMENT_ROOT"].$dir;
 		if (!file_exists($path)) mkdir ($path, 0755);
 		return $path;
 	}
 
-	public static function move_file ($file, $dir, $preface='') {
-		if ($file) {
+	public static function move_file ($old_file, $dir, $preface='') {
+		if ($old_file) {
 			$sroot = $_SERVER["DOCUMENT_ROOT"];
-			$name = Property::name_only ($file);
+			$name = Property::name_only ($old_file);
 			$name = Property::clean_image_name (urldecode ($name));
 			if ($preface && substr($name, 0, 1) != $preface) $name = $preface.$name;
-			$file_name = "$dir/$name";
-			if ($sroot.$file != $sroot.$file_name && file_exists ($sroot.$file)) {
-				rename ($sroot.$file, $sroot.$file_name);
+			$new_file = "$dir/$name";
+			if ($old_file != $new_file && file_exists ($sroot.$old_file)) {
+				rename ($sroot.$old_file, $sroot.$new_file);
+				FileManager::prop_rename (preg_replace('/^\/files\//', '', $old_file), preg_replace('/^\/files\//', '', $new_file));
 			}
-			if (file_exists ($sroot.$file_name)) return $file_name;
+			if (file_exists ($sroot.$new_file)) return $new_file;
 		}
 	}
 
@@ -50,7 +59,8 @@ class Property {
     public static function property_types () {
 		return array (
 			array ('key' => 'Home', 'value' => __ ('Homes')),
-			array ('key' => 'Acreage', 'value' => __ ('Acreage')),
+			array ('key' => 'Estate', 'value' => __ ('Estates')),
+			array ('key' => 'Land', 'value' => __ ('Land'), 'synonyms' => __ ('Acreage')),
 			array ('key' => 'Rental', 'value' => __ ('Rentals')),
 			array ('key' => 'Commercial', 'value' => __ ('Commercial Properties')),
 			array ('key' => 'All', 'value' => __ ('All Properties'))

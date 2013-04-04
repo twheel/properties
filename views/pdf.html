@@ -6,7 +6,7 @@
 	<p><b>{{ price }}</b></p>
 	<p><b>{{ MLS }}</b></p>
 		</td></tr></table>
-	{% if directions != '<p><br></p>' %}
+	{% if directions != '' %}
 	<h3>Directions</h3>
 	{{ directions|none }}
 	{% end %}

@@ -10,12 +10,18 @@
 	{% if show_documents %}
 	<p class="documents">{% foreach documents %}<a href="{{loop_index}}">{% if loop_value %}{{loop_value}}{% else %}{{ loop_index|Property::name_only }}{% endif %}</a><br>{% end %}</p>
 	{% end %}
-	{% if directions != '<p><br></p>' %}
+	<p class="documents"><a href="/pdf.php?uri={{url_type}}/{{id}}">Brochure</a></p>
+	{% if directions != '' %}
 	<h3>Directions</h3>
 	{{ directions|none }}
 	{% end %}
-	<p class="documents"><a href="/pdf.php?uri={{url_type}}/{{id}}">Brochure</a></p>
 	{% if User::require_admin () %}
 	<p><a href="/properties/edit?id={{ id }}">{"Edit Property"}</a></p>
 	{% end %}
 </div>
+
+<script>
+$(function () {
+    $('.admin-options:first').hide ();
+});
+</script>

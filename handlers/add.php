@@ -50,6 +50,7 @@ echo $form->handle (function ($form) {
 		'on_hold' => $_POST['on_hold'] 
 	));
 	$properties->put ();
+	// Versions::add ($properties);
 	// info ($properties->error);
 	// info (DB::$last_sql);
 	// info (DB::$last_args);

@@ -1,7 +1,5 @@
 <?php
 
-$p = new properties\Properties;
-
 // Get the parameters for this request
 list ($url_type, $property_title) = $tpl->controller->params;
 
@@ -11,6 +9,8 @@ list ($type, $page->title) = Property::url_to_type ($url_type);
 // Build the query
 $parameters = array ();
 $ft_parameters = array ();
+$wheres = array ("on_hold = '0'");
+$orders = array ('status', 'random()');
 
 if ($type != 'All') {
 	$parameters['type'] = $type;
@@ -21,15 +21,14 @@ if ($property_title != '') {
 }
 
 if (isset ($_GET['q']) && $_GET['q'] != '') {
-	$page->title = 'Search Results';
-	$qsane = Template::sanitize ('*'.trim($_GET['q']).'*');
-	if (strtolower ($qsane) == 'homes' || strtolower ($qsane) == 'rentals') $qsane = substr ($qsane, 0, -1);
-	$ft_parameters['properties'] = $qsane;
 	$page->q = $_GET['q'];
+	$page->title = 'Search Results';
+	$ft_parameters = Property::get_search_parameters ($_GET['q']);
 }
 
 // Get the properties
-$properties = $p->prop_query ($parameters, $ft_parameters);
+$p = properties\Properties::prop_query ($parameters, $ft_parameters, $wheres, $orders);
+$properties = $p->fetch ();
 
 // info (DB::$last_sql);
 // info (DB::$last_args);
@@ -65,6 +64,9 @@ if (count ($properties) == 1) {
 		}
 	}
 
+	// directions
+	if ($property->directions == '<p><br></p>') $property->directions = '';
+
 	// var_dump ($property);
 
 	if (defined ('SAVING_AS_PDF')) {
@@ -75,6 +77,14 @@ if (count ($properties) == 1) {
 			$property
 		);
 	} else {
+
+	// show admin edit buttons
+		if (User::is_valid () && User::is ('admin')) {
+			$lock = new Lock ('Property', $id);
+			$property->locked = $lock->exists ();
+			echo $tpl->render ('properties/editable', $property);
+		}
+
 		$property->url_type = $url_type;
 		echo $tpl->render (
 			'properties/property',
@@ -85,13 +95,15 @@ if (count ($properties) == 1) {
 } else {
 
 	if (count($properties)) $page->hide_sidebar = true;
+	else $page->title = "";
 
 	// category or all listings
 	echo $tpl->render (
 		'properties/index',
 		array (
 			'properties' => $properties,
-			'url_type' => $tpl->controller->params[0]
+			'url_type' => $tpl->controller->params[0],
+			'id' => $property_title
 		)
 	);
 }

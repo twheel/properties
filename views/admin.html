@@ -2,9 +2,9 @@
 
 <table width="100%">
 	<tr>
-		<th><a href="?sort=name{% if sort == 'name' && $data->desc !='name' %}&amp;desc=name{% endif %}">{" Name "}</a></th>
-		<th><a href="?sort=type{% if sort == 'type' && $data->desc !='type' %}&amp;desc=type{% endif %}">{" Type "}</a></th>
-		<th><a href="?sort=title{% if sort == 'title' && $data->desc !='title' %}&amp;desc=title{% endif %}">{" Title "}</a></th>
+		<th><a href="?{{ qs }}sort=name{% if sort == 'name' && $data->desc !='name' %}&amp;desc=name{% endif %}">{" Name "}</a></th>
+		<th><a href="?{{ qs }}sort=type{% if sort == 'type' && $data->desc !='type' %}&amp;desc=type{% endif %}">{" Type "}</a></th>
+		<th><a href="?{{ qs }}sort=title{% if sort == 'title' && $data->desc !='title' %}&amp;desc=title{% endif %}">{" Title "}</a></th>
 		<th>&nbsp;</th>
 	</tr>
 {% foreach items %}
