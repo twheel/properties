@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{ conf('General', 'site_name') }}
+	  {% if $data->window_title != conf('General', 'site_name') %}
+	     - {{ window_title|none }}
+	  {% end %}
+  	</title>
+	<link rel="shortcut icon" href="/files/design/favicon.ico" />
+	<meta charset="{{ i18n.charset }}" />
+  	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ {# assetic/css?css[]=css/reset.css&css[]=css/text.css&css[]=css/960.css&css[]=css/style.css&css[]=css/properties.css #}
+</head>
+<body>
+  <div id="wrapper" class="container_12" style="padding: 0px;">
+    <div id="head" class="grid_12" style="margin-left: 0px; width: 100%;">
+		<div class="alpha" style="text-align: center;">
+			  <p style="border: 2px solid rgb(204, 204, 204);box-shadow: 5px 5px 5px rgb(136, 136, 136);"><img src="/files/design/logo.png" alt="RRER" width="152" height="180">{! properties/random-banner?path=banners !}</p>
+		  <h1><img src="/files/design/rrer.png" width="714" height="43"></h1>
+		  <p style="line-height: 1em;">A comprehensive, community conscious &amp; environmentally aware real estate service for Rappahannock County &amp; region.</p>
+		  <p style="margin: 0px; line-height: 1em; font-size: large;">311 Gay Street, Washington, VA  22747</p>
+		  <p style="margin: 0px; line-height: 1em; font-size: large;">(540) 675-1190</p>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div id="body" class="grid_8">
+		<h2>{{ title|none }}</h2>
+{{ body|none }}
+	</div>
+	<div class="clear"></div>
+</div>
+</body>
+</html>

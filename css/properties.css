@@ -1,0 +1,168 @@
+body {
+	background-color: #063;
+  	background-image: none;
+	font: 16px/1.2 'Helvetica Neue', Arial, 'Liberation Sans', FreeSans, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin-bottom: 8px;
+	font-weight: 300;
+}
+
+a {
+	color: blue;
+}
+
+p {
+	margin-bottom: 20px;
+}
+
+div#head {
+  	text-align: center;
+}
+
+#head h1 {
+	font-size: 42px;
+}
+
+#head .menu {
+	font-size: 13px;
+}
+
+#head .menu ul li a {
+  	border-top: none;
+	font-weight: bold;
+	padding: 5px 11px 5px 11px;
+}
+
+#head .menu ul li a:hover {
+  	border-top: none;
+	background: #00651F;
+}
+
+div#body {
+  	padding: 15px;
+  	width: 610px;
+  	margin-left: 0px;
+}
+
+div#wrapper {
+  	margin: 25px auto;
+  	border-top: none;
+  	padding: 0px;
+}
+
+div#head {
+  	margin-left: 0px;
+  	width: 100%;
+}
+
+h2, div#gallery-full {
+	text-align: center;
+}
+
+div#our-team p {
+	clear: left;
+}
+
+div#gallery-desc {
+	text-align: center;
+}
+
+table#our-team td img, div#our-team p img, div#listings p img, div#gallery-full img, a#random-image-gallery img {
+	border: 2px solid #ccc;
+	box-shadow: 5px 5px 5px #888888;
+	margin-right: 15px;
+	margin-bottom: 10px;
+}
+
+table#our-team td {
+	padding: 1em;
+}
+
+div#testimonials p {
+	text-align: center;
+	border: 1px solid black;
+	padding: 3px;
+}
+
+div#listings h3 {
+	clear: left;
+	margin-top: 1em;
+	margin-bottom: 0px;
+}
+
+div#listings-menu {
+	text-align: center;
+	font-size: 13px;
+}
+
+div#listings-menu ul {
+	list-style-type: none;
+	margin-left: 0px;
+	padding-left: 0px;
+	margin-top: 15px;
+	margin-bottom: 0px;
+}
+
+div#listings-menu ul li {
+	list-style-type: none;
+	margin-left: 0px;
+	padding-left: 0px;
+	display: inline;
+}
+
+div#listings-menu ul li a {
+	padding: 4px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+div#listings-menu ul li a:hover {
+	background: #00651F;
+	color: #fff;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+p.documents a[href$=".doc"], p.documents a[href$=".DOC"], p.documents a[href$=".docx"], p.documents a[href$=".DOCX"] {
+	padding: 2px 2px 2px 20px;
+	background: url("/css/files/images/doc.png") left center no-repeat;
+}
+
+p.documents a[href$=".gif"], p.documents a[href$=".GIF"], p.documents a[href$=".jpg"], p.documents a[href$=".JPG"], p.documents a[href$=".png"], p.documents a[href$=".PNG"]  {
+	padding: 2px 2px 2px 20px;
+	background: url("/css/files/images/picture.png") left center no-repeat;
+}
+
+p.documents a[href$=".mp3"], p.documents a[href$=".MP3"] {
+	padding: 2px 2px 2px 20px;
+	background: url("/css/files/images/music.png") left center no-repeat;
+}
+
+p.documents a[href$=".pdf"], p.documents a[href$=".PDF"], p.documents a[href^="/pdf"] {
+	padding: 2px 2px 2px 20px;
+	background: url("/css/files/images/pdf.png") left center no-repeat;
+}
+
+p.documents a[href$=".ppt"], p.documents a[href$=".PPT"] {
+	padding: 2px 2px 2px 20px;
+	background: url("/css/files/images/ppt.png") left center no-repeat;
+}
+
+p.documents a[href$=".xls"], p.documents a[href$=".XLS"] {
+	padding: 2px 2px 2px 20px;
+	background: url("/css/files/images/xls.png") left center no-repeat;
+}
+img#banner {
+	margin-left: 20px;
+	border: 2px solid rgb(204, 204, 204);
+	box-shadow: 5px 5px 5px rgb(136, 136, 136);
+}
+
+.grid_1,.grid_2,.grid_3,.grid_4,.grid_5,.grid_6,.grid_7,.grid_8,.grid_9,.grid_10,.grid_11,.grid_12,.grid_13,.grid_14,.grid_15,.grid_16{margin-left:5px;margin-right:5px}
+
+div#footer {
+	font-size: 12px;
+  	text-align: center;
+}

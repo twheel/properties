@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{ conf('General', 'site_name') }}
+	  {% if $data->window_title != conf('General', 'site_name') %}
+	     - {{ window_title|none }}
+	  {% end %}
+  	</title>
+	<link rel="shortcut icon" href="/files/design/favicon.ico" />
+	<meta charset="{{ i18n.charset }}" />
+	{% if detect('mobile') %}
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+		<link rel="stylesheet" type="text/css" href="{# assetic/css/mobile.css #}" />
+	{% else %}
+  {# assetic/css?css[]=css/reset.css&css[]=css/text.css&css[]=css/960.css&css[]=css/style.css&css[]=css/properties.css #}
+	{% end %}
+	{! admin/head !}
+	{{ head|none }}
+</head>
+<body>
+  <div id="wrapper" class="container_12">
+    <div id="head" class="grid_12">
+		<div class="alpha">
+		  <p>{% if id != 'index' %}<a href="/">{% endif %}<img src="/files/design/logo.png" alt="RRER" width="152" height="180">{! properties/random-banner?path=banners !}{% if id != 'index' %}</a>{% endif %}</p>
+		  <h1>{{ conf('General', 'site_name') }}</h1>
+		  <p style="line-height: 1em;">A comprehensive, community conscious &amp; environmentally aware real estate service for Rappahannock County &amp; region.</p>
+		  <p style="margin: 0px; line-height: 1em; font-size: large;">(540) 675-1190</p>
+		</div>
+    <div class="omega menu" style="margin-left: 10px;">
+		  {! navigation/dropmenu !}
+		</div>
+	</div>
+	<div class="clear"></div>
+  {% if hide_sidebar != true %}
+    <div id="body" class="grid_8">
+  {% else %}
+	<div id="body" class="grid_8" style="width: 920px;">
+  	  <form id="search" action="/properties" style="float: right; margin-top: 1em;">
+	    <input type="text" name="q" value="{{ q }}">
+	    <input type="submit" value="Search">
+	  </form>
+
+  {% endif %}
+		
+{% if id != 'index' && title != '' %}<h2>{{ title|none }}</h2>{% end %}
+{{ body|none }}
+
+	</div>
+  {% if hide_sidebar != true %}
+	<div id="sidebar" class="grid_4">
+	  <form id="search" action="/properties">
+	    <input type="text" name="q" value="{{ q }}">
+	    <input type="submit" value="Search">
+	  </form>
+	  <div id="listings-menu">{! navigation/section?section=property !}</div>
+	  {% if sidebar == '' %}{! blocks/index?id=sidebar-[id]&fallback=default !}{% else %}{{ sidebar|none }}{% endif %}
+	</div>
+  {% endif %}
+	<div class="clear"></div>
+	<div id="footer" class="grid_12">
+	  <p style="font-size: 16px;">311 Gay Street, Washington, VA  22747</p>
+	  <p>{"Copyright"} &copy; 1998 - 2013 Rappahannock Real Estate Resources, Inc.<br />
+	  {"Scenic Photos by"} Teddy Pellegata<br />
+	    <a href="http://www.elefantcms.com/">ElefantCMS</a> {"customized by"} <a href="http://www.wheelockweb.com/">Wheelock Web Works</a></p>
+	</div>
+	<div class="clear"></div>
+</div>
+{{ tail|none }}
+</body>
+</html>

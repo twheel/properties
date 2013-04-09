@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{ Product::name() }} - {{ window_title|none }}</title>
+	<meta charset="{{ i18n.charset }}" />
+  	<link rel="shortcut icon" href="/files/design/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="/apps/admin/css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="/apps/admin/css/text.css" />
+	<link rel="stylesheet" type="text/css" href="/apps/admin/css/960.css" />
+	<link rel="stylesheet" type="text/css" href="{{ Product::stylesheet() }}" />	
+	{! admin/head !}
+	{{ head|none }}
+</head>
+<body>
+<div id="wrapper" class="container_12">
+	<div id="body" class="grid_12">
+	  {% if title == 'Properties' %}
+	  <form id="search" action="/properties/admin" style="float: right; margin-top: 1em;">
+	    <input type="text" name="q" value="{{ q }}">
+	    <input type="submit" value="Search">
+	  </form>
+	  {% endif %}
+	{% if title != '' %}<h2>{{ title|none }}</h2>{% end %}
+	{{ body|none }}
+	</div>
+	<div class="clear"></div>
+	<div id="footer" class="grid_12">
+		<div class="grid_6 alpha">
+			&nbsp;
+		</div>
+		<div class="grid_6 omega copyright">
+			{"Powered by"} <a href="{{ Product::website() }}">{{ Product::name() }} {{ constant('ELEFANT_VERSION') }}</a>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+{{ tail|none }}
+</body>
+</html>
