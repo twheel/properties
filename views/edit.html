@@ -42,7 +42,7 @@
 
 <p>
 	{"Main Image"}:<br />
-	<!-- input type="submit" id="browse-image" tabindex="0" value="{"Choose an image"}" / -->
+	<input type="submit" id="browse-image" value="{"Choose an image"}" />
 	<input type="hidden" name="main_image" id="main_image" value="{{main_image|quotes}}" />
 </p>
  
@@ -140,18 +140,18 @@
 			preview: '#documents-preview',
 			path: 'properties/{{id|Property::clean_image_name}}'
 		});
-		$('#browse-image').click (function () {
-			$.filebrowser ({
-				thumbs: true,
-				title: '{"Choose an image"}',
-				set_value: '#main_image',
-				path: 'properties/{{id|Property::clean_image_name}}',
-				callback: function (file) {
-					$('#main_image-preview').attr ('src', file);
-				}
-			});
-			return false;
+	});
+	$('#browse-image').click (function () {
+		$.filebrowser ({
+			thumbs: true,
+			title: '{"Choose an image"}',
+			set_value: '#main_image',
+			path: 'properties/{{id|Property::clean_image_name}}',
+			callback: function (file) {
+				$('#main_image-preview').attr ('src', file);
+			}
 		});
+		return false;
 	});
 
 	function webpage_add_title_to_id (f) {

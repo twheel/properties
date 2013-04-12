@@ -12,7 +12,7 @@
 	{% end %}
 {% end %}
 </div>
-{% elseif url_type != '' && id == '' %}
+{% elseif url_type != '' && $data->id == '' %}
 	{! blocks/index?id=no-[ url_type ]-available !}
 {% elseif id != '' %}
 	{! blocks/index?id=listing-not-found !}
